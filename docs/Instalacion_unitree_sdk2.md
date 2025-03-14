@@ -54,7 +54,7 @@ make
 ```
 Esto te permitirá usar los binarios sin necesidad de instalación.
 
-Para visualizar la referencia original [Unitree SDK2](https://github.com/unitreerobotics/unitree_sdk2))
+Para visualizar la referencia original [Unitree SDK2](https://github.com/unitreerobotics/unitree_sdk2)
 
 ## Posibles errores que se pueden presentar
 ### Asociación de librería erronea:
