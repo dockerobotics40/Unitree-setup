@@ -42,6 +42,7 @@ Deben de aparecer mensajes de:
 ```bash
 HelloWorld
 ```
+Ya se encuentra la librería lista para su uso y desarrollo!
 ## Alternativa: Usar sin instalar
 Si no quieres instalar la librería para tus propios desarrollos y solo quieres usar sus ejemplos , compila con:
 
