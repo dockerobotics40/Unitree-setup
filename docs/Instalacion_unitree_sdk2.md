@@ -57,6 +57,7 @@ Esto te permitirá usar los binarios sin necesidad de instalación.
 Para visualizar la referencia original [Unitree SDK2](https://github.com/unitreerobotics/unitree_sdk2))
 
 ## Posibles errores que se pueden presentar
+### Asociación de librería erronea:
 Si aparece el siguiente error:
 IMAGEN
 Se debe a que no se encuentra asociada la librería instalada correctamente, la cual está
@@ -77,3 +78,22 @@ source ~/.bashrc
 ```
 
 Una vez solventado el error, se puede ejecutar nuevamente el ejemplo de Hello World.
+
+### Errores de compilación (make o sudo make install) de librerías como:
+```bash
+Fatal error: yaml-cpp/yaml.h: No such file or directory
+```
+Para solucionarlo se debe instalar la librería de desarrollo y volver a compilar:
+```bash
+sudo apt update
+sudo apt install libyaml-cpp-dev
+```
+Si se presenta un error como:
+```bash
+Fatal error: eigen3/Eigen/Dense: No such file or directory
+```
+Para solucionarlo se debe instalar la librería correspondiente:
+```bash
+sudo apt update
+sudo apt install libeigen3-dev
+```
