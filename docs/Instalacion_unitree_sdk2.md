@@ -2,7 +2,7 @@
 
 ## Requerimientos  
 - Ubuntu 20.04
-- 
+
 ## 1️. Clonar el repositorio  
 Abre una terminal y ejecuta: 
 ```bash
