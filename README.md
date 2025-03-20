@@ -27,6 +27,8 @@ Aquí encontrarás guías detalladas para instalar:
 
 - SDK2 de Unitree
 - Otros paquetes y dependencias necesarias
+
+  
 📍 Para empezar, consulta la guía de instalación del SDK2 de Unitree en installations/unitree_sdk2.md.
 
 ### 2. Ejemplos Básicos 
@@ -34,6 +36,8 @@ Una vez instalado el SDK y configurado el entorno, puedes probar ejemplos como:
 
 Publicador y suscriptor para probar comunicación
 Control básico del robot con comandos simples
+
+
 📚 Puedes encontrar los ejemplos en la carpeta examples/.
 
 
