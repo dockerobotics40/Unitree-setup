@@ -36,3 +36,5 @@ python3 subscriber.py
 El resultado que debe evidenciarse es:
 
 IMAGEN
+
+Ya se encuentra lista la librería para su desarrollo!
