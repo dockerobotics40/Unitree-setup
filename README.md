@@ -29,7 +29,7 @@ Aquí encontrarás guías detalladas para instalar:
 - Otros paquetes y dependencias necesarias
 
   
-📍 Para empezar, consulta la guía de instalación del SDK2 de Unitree en [docs/Instalacion_unitree_SDK2.md](docs/Instalacion_unitree_SDK2.md).
+📍 Para empezar, consulta la guía de instalación del SDK2 de Unitree en [docs/Instalacion_unitree_SDK2.md](docs/Instalacion_unitree_sdk2.md).
 
 ### 2. Ejemplos Básicos 
 Una vez instalado el SDK y configurado el entorno, puedes probar ejemplos como:
