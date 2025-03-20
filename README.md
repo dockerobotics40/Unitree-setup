@@ -11,12 +11,14 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 ```bash
 📦 unitree-setup  
 │-- 📄 README.md               # Documentación principal  
-│-- 📂 installations/          # Guías de instalación de SDKs y paquetes  
+│-- 📂 docs/          # Guías de instalación de SDKs y paquetes  
 │   ├── unitree_sdk2.md        # Instalación y uso de SDK2 de Unitree  
 │   ├── other_package.md       # Instalación de otros paquetes  
 │-- 📂 examples/               # Ejemplos de uso básicos  
 │   ├── example1.md            # Publicador-suscriptor  
-│   ├── example2.md            # Control básico del robot  
+│   ├── example2.md            # Control básico del robot
+│-- 📂 repositirios/               # Enlaces de documentación original
+│   ├── Enlaces_repositorios.md            # Direcciones originales  
 │-- 📂 images/                 # Capturas de pantalla y diagramas  
 ```
 ## 📌 Contenidos
