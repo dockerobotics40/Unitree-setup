@@ -12,8 +12,11 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 📦 unitree-setup  
 │-- 📄 README.md               # Documentación principal  
 │-- 📂 docs/          # Guías de instalación de SDKs y paquetes  
-│   ├── unitree_sdk2.md        # Instalación y uso de SDK2 de Unitree  
-│   ├── other_package.md       # Instalación de otros paquetes  
+│   ├── Instalacion_unitree_sdk2.md        # Instalación y uso de SDK2 de Unitree  
+│   ├── other_package.md       # Instalación de otros paquetes
+│   ├── other_package.md       # Instalación de otros paquetes
+│   ├── other_package.md       # Instalación de otros paquetes
+│   ├── other_package.md       # Instalación de otros paquetes   
 │-- 📂 examples/               # Ejemplos de uso básicos  
 │   ├── example1.md            # Publicador-suscriptor  
 │   ├── example2.md            # Control básico del robot
@@ -31,8 +34,8 @@ Aquí encontrarás guías detalladas para instalar:
   
 📍 Para empezar, consulta la guía de instalación del SDK2 de Unitree en [docs/Instalacion_unitree_SDK2.md](docs/Instalacion_unitree_sdk2.md).
 
-### 2. Ejemplos Básicos 
-Una vez instalado el SDK y configurado el entorno, puedes probar ejemplos como:
+### 2. Ejemplos Básicos y personalizables
+Una vez instalado el SDK2 en python, C++ y configurado el entorno, puedes probar ejemplos como:
 
 Publicador y suscriptor para probar comunicación
 Control básico del robot con comandos simples
