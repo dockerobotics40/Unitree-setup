@@ -3,8 +3,7 @@
 Antes de comenzar, asegúrate de contar con los siguientes requisitos en tu sistema:
 
 - Ubuntu 20.04
-- ROS2 Foxy, si no se encuentra instalado seguir: [Instalacion ROS2 Foxy](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-
-Debians.html)
+- ROS2 Foxy, si no se encuentra instalado seguir:[Instalacion ROS2 Foxy](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
 
 ## 1.Clonar el paquete unitree_ros2
 Para comenzar, clona el repositorio necesario para interactuar con el robot desde ROS 2:
