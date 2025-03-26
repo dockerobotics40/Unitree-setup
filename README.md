@@ -17,7 +17,7 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 │   ├── Instalacion_unitree_ros2.md       # Instalación de otros paquetes
 │   ├── Instalacion_driver_LiDAR_LIVOX360.md       # Instalación de otros paquetes
 │   ├── Instalacion_driver_depth_camera.md       # Instalación de otros paquetes   
-│-- 📂 examples/               # Ejemplos de uso básicos  
+│-- 📂 ejemplos/               # Ejemplos de uso básicos  
 │   ├── Conexion_robotG1.md            # Publicador-suscriptor  
 │   ├── Ejemplo_bajo_nivel.md            # Explicado para python y C++ SDK
 │   ├── Ejemplo_alto_nivel.md            # Explicado para python y C++ SDK
@@ -30,7 +30,7 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 │   ├── Conexion_wifi_PC2.md            # Explicado como se hace y que es PC2
 │-- 📂 repositirios/               # Enlaces de documentación original
 │   ├── Enlaces_repositorios.md            # Direcciones originales  
-│-- 📂 images/                 # Capturas de pantalla y diagramas  
+│-- 📂 imagenes/                 # Capturas de pantalla y diagramas  
 ```
 ## 📌 Contenidos
 ### 1. Instalaciones
