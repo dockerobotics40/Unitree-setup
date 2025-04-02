@@ -2,9 +2,8 @@
 
 Para familiarizarse con la ejecución de código en el robot **G1**, se recomienda seguir la siguiente secuencia luego de tener todos los paquetes instalados:
 
-1. **Conexión con el Robot G1** [Conexion_robotG1.md](ejemplos/Conexion_robotG1.md)
+1. **Conexión con el Robot G1** (`Conexion_robotG1.md`) 
    Realiza la configuración de la interfaz de red ethernet con el robot.
-
 2. **Ejemplo de Bajo Nivel** (`Ejemplo_bajo_nivel.md`)
 
 * Ejecución de código con comandos básicos de movimiento oscilatorio de los tobillos para **Python** y **C++** con la **SDK**.
@@ -19,13 +18,15 @@ Para familiarizarse con la ejecución de código en el robot **G1**, se recomien
 
 5. **Código Básico de Movimientos en Alto Nivel** (`Codigo_basico_movimientos_altoNivel.md`)
 
-* Uso de comandos básicos (`WASD`) y trayectoria personalizada.
+* Uso de comandos básicos (`WASD`) para movimiento y trayectoria personalizada de figuras en python.
 
 6. **Ejemplo de Movimiento de Brazos** (`Ejemplo_movimiento_brazos.md`)
 
-* Explicación para **Python** y **C++** con la **arm\_sdk**.
+* Movimientos de brazos para **Python** y **C++** con la **arm\_sdk** de Unitree.
 
 7. **Código Básico de Movimiento Personalizado de Brazos** (`Codigo_basico_movimientoBrazo_personalizado.md`)
+
+*Movimientos de los brazos personalizados usando **arm_sdk** de Unitree en python.
 
 📌 **Nota:** Se recomienda seguir la secuencia establecida para facilitar la comprensión del funcionamiento del robot.
 
