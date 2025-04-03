@@ -13,15 +13,12 @@ Verificar la correcta recepción y visualización de datos de los sensores del *
 ## **Configuración de la Red y Entorno de ROS 2**
 
 1. **Abrir el archivo de configuración `setup.sh`** en el directorio **unitree\_ros2** para establecer la dirección IP modificando la linea donde se define, guardar los cambios y cerrar.
-   IMAGEN
-
-2. **Ejecutar el script de configuración** para actualizar la conexión con ROS 2:
+![1743698878139](images/Ejemplo_acceso_sensores_ROS2/1743698878139.png)
+3. **Ejecutar el script de configuración** para actualizar la conexión con ROS 2:
 
 ```bash
 source~/unitree_ros2/setup.sh
 ```
-
-IMAGEN
 
 ## **Visualización de Datos con PlotJuggler**
 
@@ -43,10 +40,9 @@ Para iniciar la interfaz gráfica de **PlotJuggler**, usa el siguiente comando:
 ros2 run plotjuggler plotjuggler
 ```
 
-
 Al ejecutarse, se abrirá la ventana principal de la herramienta.
 
-IMAGEN
+![1743698953466](images/Ejemplo_acceso_sensores_ROS2/1743698953466.png)
 
 ### **Configuración de la Interfaz en PlotJuggler**
 
@@ -56,7 +52,6 @@ Una vez dentro de la interfaz:
 2. Presionar el botón **Start** para comenzar la lectura de datos.
 3. Seleccionar los tópicos disponibles y agregarlos a la interfaz de visualización.
 4. Arrastrar y soltar los datos en la gráfica para analizarlos en tiempo real.
-
 
 ## **Monitoreo de Tópicos en ROS 2**
 
@@ -71,7 +66,7 @@ ros2 topic list
 Este comando mostrará una lista de todos los tópicos que están siendo transmitidos en el sistema ROS 2.
 
 Ejemplo de salida:
-IMAGEN
+![1743698986524](images/Ejemplo_acceso_sensores_ROS2/1743698986524.png)
 
 ### **Ver la información de un tópico en tiempo real**
 

@@ -25,7 +25,7 @@ cmake ..
 
 ## 📌 Resultado esperado
 
-![Robot G1 en acción](imagenes/resultado_cmake_sdk2.png)
+![1743698433382](images/Instalacion_unitree_sdk2/1743698433382.png)
 
 ## Instalar la librería
 
@@ -35,8 +35,7 @@ sudo make install
 
 ## 📌 Resultado esperado
 
-IMAGEN
-
+![1743698450950](images/Instalacion_unitree_sdk2/1743698450950.png)
 ## Probar la instalación usando Hello World
 
 ### Publicador
@@ -86,7 +85,7 @@ Para visualizar la referencia original [Unitree SDK2](https://github.com/unitree
 ### Asociación de librería erronea:
 
 Si aparece el siguiente error:
-IMAGEN
+![1743698476310](images/Instalacion_unitree_sdk2/1743698476310.png)
 Se debe a que no se encuentra asociada la librería instalada correctamente, la cual está
 ubicada en **usr/local/lib**. Para visualizar la librería que está asociada se ejecuta:
 
@@ -96,8 +95,7 @@ ldd ./test_subscriber
 
 Si se encuentra una librería con ubicación diferente tal como la siguiente
 imagen:
-
-IMAGEN
+![1743698495254](images/Instalacion_unitree_sdk2/1743698495254.png)
 
 Se deben ejecutar los siguientes comandos:
 

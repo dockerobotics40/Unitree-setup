@@ -10,7 +10,6 @@ Verificar la conexión WiFi del G1 de Unitree, asegurando que el robot pueda acc
 - **Credenciales de acceso** a la red WiFi.
 - **Acceso SSH** al PC2 del G1.
 
-
 ## Acceso al PC2 del G1
 
 Desde el computador, conectarse al PC2 del robot mediante SSH:
@@ -60,6 +59,8 @@ Para probar acceso a Internet:
 ```bash
 ping -c 4 8.8.8.8
 ```
+
+![1743698806090](images/Conexion_wifi_PC2/1743698806090.png)
 
 Si hay respuesta, la conexión a Internet está funcionando.
 Si no hay respuesta, verificar la ruta de conexión:

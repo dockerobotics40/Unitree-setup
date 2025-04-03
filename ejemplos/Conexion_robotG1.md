@@ -26,7 +26,8 @@ Ahora, configura la dirección IP en tu computador:
 - Ve a **Settings > Network**
 - Asigna la dirección **192.168.123.222** a tu PC.
 - El robot tiene la IP **192.168.123.161**.
-  IMAGENES
+  
+  ![1743698697251](images/Conexion_robotG1/1743698697251.png)
 
 2. **Validar la conexión** con los siguientes comandos en la terminal:
 
@@ -36,14 +37,14 @@ Se realiza el ping en el terminal
 ping 192.168.123.161
 ```
 
-IMAGENES
+![1743698725476](images/Conexion_robotG1/1743698725476.png)
 Luego comprobamos el nombre de la conexión usando en la terminal
 
 ```bash
 ifconfig
 ```
 
-IMAGEN
+![1743698739924](images/Conexion_robotG1/1743698739924.png)
 
 Esto te mostrará las interfaces de red disponibles y te ayudará a identificar el nombre de la conexión activa con G1.
 
