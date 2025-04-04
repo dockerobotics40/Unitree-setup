@@ -7,9 +7,13 @@ Verificar la ejecución de movimientos articulados superiores del G1 de Unitree 
 ## **Requerimientos Previos**
 
 ✔ Robot **G1 encendido** y conectado a la red mediante **Ethernet**.
+
 ✔ PC con **SDK Python** de Unitree instalada y correctamente configurada.
+
 ✔ Archivo **`g1_arm_sdk_moveV2.py`** disponible en la ruta `~/unitree_sdk2_python/example/g1/high_level/`.
+
 ✔ Conexión estable con el robot (verificable con `ping 192.168.123.161`).
+
 ✔ Robot **suspendido** y en **modo de parada bloqueada (L1 + UP)** para realizar pruebas de forma segura.
 
 ## **Acceder a la SDK en el PC**
