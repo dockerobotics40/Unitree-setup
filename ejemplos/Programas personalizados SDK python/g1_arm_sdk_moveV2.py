@@ -1,3 +1,30 @@
+"""
+@file g1_armsdk_moveV2.py
+@autor Sofía Milagros Castaño Vanegas - Robotics 4.0 Team
+@date 2025-03-22
+@version 2.0
+@brief Control interactivo de articulaciones del G1 usando `arm_sdk`.
+
+Este script permite controlar manualmente las articulaciones del robot G1 de Unitree a través de la
+interfaz `arm_sdk`, permitiendo movimientos suaves interpolados y secuencias personalizadas definidas
+por el usuario. Emplea la API `loco_client` de la SDK2 de Unitree y facilita el control seguro del robot
+en pruebas con sus brazos, cintura y otras articulaciones superiores.
+
+@requisitos
+- Conexión Ethernet activa entre el PC y el G1.
+- Robot en modo normal (cero torque) al inicio.
+- SDK2 correctamente instalada y configurada.
+- Versión G1 29DoF para articulaciones compatibles con brazos y torso.
+
+@uso
+    python3 g1_armsdk_moveV2.py <nombreInterfaz>
+
+@funcionalidades
+- Control de articulaciones superiores (brazos, cintura, muñecas) del G1.
+- Interfaz interactiva para ingresar posiciones articulares en radianes.
+- Movimiento interpolado suave entre posiciones.
+- Liberación progresiva del control para mayor seguridad.
+"""
 import time
 import sys
 import numpy as np

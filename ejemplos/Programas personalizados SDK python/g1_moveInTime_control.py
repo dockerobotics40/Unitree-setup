@@ -1,8 +1,26 @@
 #!/usr/bin/env python3
 """
-Plantilla para Aplicaciones con el Unitree G1
-Esta plantilla permite definir secuencias de movimiento para el robot G1,
-incluyendo un reto de movimiento en cuadrado y un saludo final.
+@file g1_move_in_time.py
+@autor Sofía Milagros Castaño Vanegas - Robotics 4.0 Team
+@date 2025-03-05
+@version 1.0
+@brief Script de control programado para el robot G1 de Unitree.
+
+Este script define una secuencia de movimientos preestablecidos para el robot G1, incluyendo un reto
+de desplazamiento en forma de cuadrado y un gesto de saludo final. Utiliza la API `loco_client` 
+de la SDK2 de Unitree para enviar comandos de locomoción y gestos.
+
+@requisitos
+- Conexión Ethernet activa entre el PC y el G1.
+- Robot en modo normal (cero torque) al inicio.
+- SDK2 configurada correctamente.
+
+@uso
+    python3 g1_move_in_time.py <nombreInterfaz>
+
+@funcionalidades
+- Movimiento en cuadrado (avance + giro).
+- Saludo con la "mano" del robot.
 """
 
 import sys

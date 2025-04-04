@@ -1,7 +1,29 @@
 #!/usr/bin/env python3
 """
-Unitree G1 Robot Control Script
-This script provides keyboard-based control for the Unitree G1 robot using WASD keys.
+@file g1_wasd_control.py
+@autor Sofía Milagros Castaño Vanegas - Robotics 4.0 Team
+@autor Vitaly Bulatov
+@date 2025-03-26
+@version 1.0
+@brief Control básico del robot G1 de Unitree mediante teclado (WASD).
+
+Este script permite controlar de forma manual el movimiento del robot cuadrúpedo G1 usando las teclas 
+W, A, S, D, Q, E, Space y Esc. Utiliza la API de alto nivel `loco_client` incluida en la SDK2 de Unitree.
+
+@requisitos
+- Robot G1 encendido y en modo normal (cero torque), suspendido.
+- Conexión Ethernet activa con el robot.
+- SDK2 de Unitree configurado y acceso a la red desde el PC.
+
+@uso
+Desde terminal, ejecutar:
+    python3 g1_wasd_control.py <nombreInterfaz>
+
+@teclas
+W/A/S/D: Movimiento en plano XY  
+Q/E: Rotación  
+Space: Detener movimiento  
+Esc: Finalizar ejecución
 """
 
 import sys
