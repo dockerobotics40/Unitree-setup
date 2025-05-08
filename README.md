@@ -10,29 +10,41 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 
 ```bash
 📦 unitree-setup  
-│-- 📄 README.md               # Documentación principal  
-│-- 📂 docs/          # Guías de instalación de SDKs y paquetes  
-│   ├── Instalacion_unitree_sdk2.md        # Instalación y uso de SDK2 de Unitree  
-│   ├── Instalacion_unitree_sdk2_python.md       # Instalación de otros paquetes
-│   ├── Instalacion_unitree_ros2.md       # Instalación de otros paquetes
-│   ├── Instalacion_driver_LiDAR_LIVOX360.md       # Instalación de otros paquetes
-│   ├── Instalacion_driver_depth_camera.md       # Instalación de otros paquetes   
-│-- 📂 ejemplos/               # Ejemplos de uso básicos  
-│   ├──  📂 Programas  personalizados SDK python 
-│   ├── Secuencia_de_Ejecucion.md            # Publicador-suscriptor 
-│   ├── Conexion_robotG1.md            # Publicador-suscriptor  
-│   ├── Ejemplo_bajo_nivel.md            # Explicado para python y C++ SDK
-│   ├── Ejemplo_alto_nivel.md            # Explicado para python y C++ SDK
-│   ├── Ejemplo_movimiento_brazos.md            # Explicado para python y C++ arm_sdk
-│   ├── Ejemplo_acceso_sensores_ROS2.md            # Explicado visualización ROS2
-│   ├── Codigo_basico_movimientos_altoNivel.md            # Explicado wasd y trayectoria personalizada*
-│   ├── Codigo_basico_movimientoBrazo_personalizado.md            # Explicado arm_sdk poner articulaciones en terminal
-│   ├── Visualizacion_info_LiDAR.md            # Explicado proceso
-│   ├── Visualizacion_info_camaraDepth.md            # Explicado proceso
-│   ├── Conexion_wifi_PC2.md            # Explicado como se hace y que es PC2
-│-- 📂 repositirios/               # Enlaces de documentación original
-│   ├── Enlaces_repositorios.md            # Direcciones originales  
-│-- 📂 imagenes/                 # Capturas de pantalla y diagramas
+.
+├── README.md
+├── docs
+│   ├── FAQ.md
+│   ├── Instalacion_driver_LiDAR_LIVOX360.md
+│   ├── Instalacion_driver_depth_camera.md
+│   ├── Instalacion_unitree_ros2.md
+│   ├── Instalacion_unitree_sdk2.md
+│   ├── Instalacion_unitree_sdk2_python.md
+│   └── images
+│       ├── Instalacion_unitree_ros2
+│       ├── Instalacion_unitree_sdk2
+│       └── Instalacion_unitree_sdk2_python
+├── ejemplos
+│   ├──  Secuencia_de_Ejecucion.md
+│   ├── Codigo_basico_movimientoBrazo_personalizado.md
+│   ├── Codigo_basico_movimientos_altoNivel.md
+│   ├── Conexion_robotG1.md
+│   ├── Conexion_wifi_PC2.md
+│   ├── Ejemplo_acceso_sensores_ROS2.md
+│   ├── Ejemplo_alto_nivel.md
+│   ├── Ejemplo_bajo_nivel.md
+│   ├── Ejemplo_movimiento_brazos.md
+│   ├── Programas personalizados SDK python
+│   │   ├── g1_arm_sdk_moveV2.py
+│   │   ├── g1_moveInTime_control.py
+│   │   └── g1_wasd_control.py
+│   ├── Visualizacion_info_LiDAR.md
+│   ├── Visualizacion_info_camaraDepth.md
+│   └── images
+│       ├── Conexion_robotG1
+│       ├── Conexion_wifi_PC2
+│       └── Ejemplo_acceso_sensores_ROS2
+└── repositorios
+    └── Enlaces_repositorios.md
 ```
 
 ## 📌 Contenidos
@@ -61,8 +73,6 @@ Una vez instalado el SDK2 en python/C++, paquete de ROS2 para Unitree, drivers y
 
 🤝 Conocer al Equipo
 Somos Robotics 4.0, un equipo de entusiastas de la robótica que busca innovar y desarrollar herramientas accesibles para la comunidad.
-
-📌 (Aquí se puede agregar una breve descripción del equipo y sus miembros con enlaces a perfiles o proyectos destacados).
 
 📜 Licencia
 Este proyecto sigue la licencia MIT.
