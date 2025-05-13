@@ -59,8 +59,10 @@ def initialize_robot(network_interface):
     client.StandUp()  # Ordena al robot ponerse de pie
     time.sleep(3.0)   # Espera a que termine la acción
 
-    client.Start()  # Activa el modo de movimiento
-    time.sleep(2.0)
+    print("Iniciando el robot por favor correr en el control R1 + X...")
+    ##client.Start()
+    time.sleep(7.0)
+        
 
     print("Robot listo para moverse.")
     return client
@@ -104,8 +106,8 @@ def main():
         # RETO: Movimiento en cuadrado
         print("Iniciando reto: Movimiento en cuadrado...")
         for _ in range(4):  # Repetir 4 veces para completar el cuadrado
-            move(client, x_vel=FORWARD_SPEED, duration=2.0)  # Avanza
-            move(client, yaw_vel=-ROTATION_SPEED, duration=1.6)  # Gira 90° a la izquierda
+            move(client, x_vel=FORWARD_SPEED, duration=3.0)  # Avanza
+            move(client, yaw_vel=-ROTATION_SPEED, duration=3.14)  # Gira 90° a la izquierda
 
         # RETO: Saludo final
         print("Finalizando con un saludo...")

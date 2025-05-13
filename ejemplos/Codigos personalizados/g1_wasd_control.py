@@ -39,7 +39,7 @@ LATERAL_SPEED = 0.3     # Left/right speed in m/s
 ROTATION_SPEED = 0.5    # Rotation speed in rad/s
 STARTUP_DELAY = 3.0     # Delay after standing up in seconds
 INIT_DELAY = 1.0        # Delay after initialization in seconds
-COMMAND_DELAY = 2.0     # Delay after starting in seconds
+COMMAND_DELAY = 7.0     # Delay after starting in seconds
 
 def getch():
     """
@@ -101,8 +101,8 @@ def initialize_robot(network_interface):
     client.BalanceStand(0)
     time.sleep(2) 
     
-    print("Starting robot...")
-    client.Start()
+    print("Starting robot please run in the control R1 + X...")
+    ##client.Start()
     time.sleep(COMMAND_DELAY)
     
     print("Robot started")

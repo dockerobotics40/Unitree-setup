@@ -1,3 +1,9 @@
+import time
+import sys
+import numpy as np
+import threading
+import math
+
 """
 @file g1_armsdk_moveV2.py
 @autor Sofía Milagros Castaño Vanegas - Robotics 4.0 Team
@@ -25,12 +31,6 @@ en pruebas con sus brazos, cintura y otras articulaciones superiores.
 - Movimiento interpolado suave entre posiciones.
 - Liberación progresiva del control para mayor seguridad.
 """
-import time
-import sys
-import numpy as np
-import threading
-import math
-
 # Importación de módulos de la SDK de Unitree para comunicación y control
 from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
 from unitree_sdk2py.core.channel import ChannelSubscriber
