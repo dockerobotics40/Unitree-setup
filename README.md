@@ -19,30 +19,33 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 │   ├── Instalacion_unitree_ros2.md
 │   ├── Instalacion_unitree_sdk2.md
 │   ├── Instalacion_unitree_sdk2_python.md
-│   └── images
-│       ├── Instalacion_unitree_ros2
-│       ├── Instalacion_unitree_sdk2
-│       └── Instalacion_unitree_sdk2_python
 ├── ejemplos
 │   ├──  Secuencia_de_Ejecucion.md
+│   ├── Codigo_basico_brazos_caminata.md
 │   ├── Codigo_basico_movimientoBrazo_personalizado.md
 │   ├── Codigo_basico_movimientos_altoNivel.md
+│   ├── Codigo_movimento_articulaciones_brazos_interactivo.md
+│   ├── Codigos personalizados
+│   │   ├── g1_arm_sdk_moveV2.py
+│   │   ├── g1_arm_sdk_moveV3.py
+│   │   ├── g1_arm_sdk_moveV4.py
+│   │   ├── g1_arm_sdk_moveV5.py
+│   │   ├── g1_arm_sdk_visualizer_pos_torque.py
+│   │   ├── g1_autonomusV1.py
+│   │   ├── g1_autonomusWithArmV11.py
+│   │   ├── g1_moveInTime_control.py
+│   │   ├── g1_odometry.py
+│   │   └── g1_wasd_control.py
 │   ├── Conexion_robotG1.md
 │   ├── Conexion_wifi_PC2.md
 │   ├── Ejemplo_acceso_sensores_ROS2.md
 │   ├── Ejemplo_alto_nivel.md
 │   ├── Ejemplo_bajo_nivel.md
 │   ├── Ejemplo_movimiento_brazos.md
-│   ├── Programas personalizados SDK python
-│   │   ├── g1_arm_sdk_moveV2.py
-│   │   ├── g1_moveInTime_control.py
-│   │   └── g1_wasd_control.py
+│   ├── Navegacion_autonoma_con_brazos.md
+│   ├── Protocolo_navegación_autonoma.md
 │   ├── Visualizacion_info_LiDAR.md
 │   ├── Visualizacion_info_camaraDepth.md
-│   └── images
-│       ├── Conexion_robotG1
-│       ├── Conexion_wifi_PC2
-│       └── Ejemplo_acceso_sensores_ROS2
 └── repositorios
     └── Enlaces_repositorios.md
 ```
