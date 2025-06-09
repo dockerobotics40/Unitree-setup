@@ -98,7 +98,7 @@ def initialize_robot(network_interface):
     time.sleep(STARTUP_DELAY)
     
     print("Setting robot in balance stand mode...")
-    client.BalanceStand(0)
+    # client.BalanceStand(0)
     time.sleep(2) 
     
     print("Starting robot please run in the control R1 + X...")

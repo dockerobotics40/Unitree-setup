@@ -9,7 +9,6 @@ Este ejemplo demuestra cómo ejecutar una rutina de **movimiento de tobillos** e
 🔹 El **G1** debe estar colgado para evitar caídas inesperadas.
 🔹 Modo **Debug Mode** activado.
 
-
 ## **Ejecución en C++**
 
 ### **Pasos para ejecutar el ejemplo en C++:**
@@ -27,8 +26,7 @@ cd unitree_sdk2
 ./build/bin/g1_ankle_swing_example
 ```
 
-📌 **Nota:**`nombreInterfaz` debe reemplazarse con el nombre de la interfaz de red del computador encontrada en [Conexion_wifi_PC2](ejemplos/Ejemplo_bajo_nivel.md)
-
+📌 **Nota:**`nombreInterfaz` debe reemplazarse con el nombre de la interfaz de red del computador encontrada en [Conexion_robotG1](ejemplos/Conecion_RobotG1.md)
 
 ### **¿Qué hace este código?**
 
@@ -65,5 +63,4 @@ cd unitree_sdk2
 
 * **C++:**`unitree_sdk2/example/g1/low_level/g1_ankle_swing_example.cpp`
 * **Python:**`unitree_sdk2_python/example/g1/low_level/g1_low_level_example.py`
-
 
