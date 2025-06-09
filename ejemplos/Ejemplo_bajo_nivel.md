@@ -26,7 +26,7 @@ cd unitree_sdk2
 ./build/bin/g1_ankle_swing_example
 ```
 
-📌 **Nota:**`nombreInterfaz` debe reemplazarse con el nombre de la interfaz de red del computador encontrada en [Conexion_robotG1](Conecion_RobotG1.md)
+📌 **Nota:**`nombreInterfaz` debe reemplazarse con el nombre de la interfaz de red del computador encontrada en [Conexion_robotG1](Conexion_robotG1.md)
 
 ### **¿Qué hace este código?**
 
