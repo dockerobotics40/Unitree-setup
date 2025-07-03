@@ -23,6 +23,7 @@ de la SDK2 de Unitree para enviar comandos de locomoción y gestos.
 - Saludo con la "mano" del robot.
 """
 
+
 import sys
 import time
 from unitree_sdk2py.core.channel import ChannelFactoryInitialize
@@ -64,7 +65,7 @@ def initialize_robot(network_interface):
     time.sleep(7.0)
         
 
-    print("Robot listo para moverse.")
+    print("Robot listo para moverse una vez este seguro y con espacio.")
     return client
 
 def move(client, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, duration=DURATION):
@@ -104,6 +105,7 @@ def main():
         client = initialize_robot(sys.argv[1])  # Inicializar el robot
 
         # RETO: Movimiento en cuadrado
+        input("Presiona Enter cuando el robot este listo para iniciar")
         print("Iniciando reto: Movimiento en cuadrado...")
         for _ in range(4):  # Repetir 4 veces para completar el cuadrado
             move(client, x_vel=FORWARD_SPEED, duration=3.0)  # Avanza

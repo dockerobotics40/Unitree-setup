@@ -23,7 +23,7 @@ cd unitree_sdk2
 2. **Ejecutar el ejemplo de movimiento de tobillos:**
 
 ```bash
-./build/bin/g1_ankle_swing_example
+./build/bin/g1_ankle_swing_example nombreInterfaz
 ```
 
 📌 **Nota:**`nombreInterfaz` debe reemplazarse con el nombre de la interfaz de red del computador encontrada en [Conexion_robotG1](Conexion_robotG1.md)
@@ -40,13 +40,13 @@ cd unitree_sdk2
 ### **Pasos para ejecutar el ejemplo en Python:**
 
 1. **Abrir una terminal y dirigirse a la carpeta del ejemplo:**
-   
+
    ```bash
    cd
    cd unitree_sdk2_python/example/g1/low_level
    ```
 2. **Ejecutar el script:**
-   
+
    ```bash
    python3 g1_low_level_example.py nombreInterfaz
    ```
@@ -63,4 +63,3 @@ cd unitree_sdk2
 
 * **C++:**`unitree_sdk2/example/g1/low_level/g1_ankle_swing_example.cpp`
 * **Python:**`unitree_sdk2_python/example/g1/low_level/g1_low_level_example.py`
-

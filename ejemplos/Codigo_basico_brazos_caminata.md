@@ -1,108 +1,113 @@
-### **Control Combinado de Brazos y Locomoción – Robot G1 (Caso de uso llevar una caja)**
+# **Control Interactivo de Brazos y Locomoción del G1 (Unitree SDK2)**
 
-#### Objetivo General
+## Propósito
 
-Ejecutar una secuencia controlada donde el robot G1 se acerque a una caja, realice el agarre mediante movimientos de brazo, transporte el objeto caminando y lo deposite en un objetivo determinado. Se busca validar la integración brazo-locomoción mediante una ejecución segmentada, parametrizada y evaluable.
+Este script permite controlar las **articulaciones superiores** del robot G1 de Unitree de forma **manual e interactiva**, y combinarlo con **comandos de locomoción parametrizados** mediante la API `loco_client`. Es ideal para casos como:
 
-### 1. Preparación del Entorno
+* Pruebas de manipulación (ej. levantar una caja)
+* Validación de posturas articulares
+* Coordinación brazo-caminar
+* Análisis de torque frente a carga y movimiento
 
-#### 1.1 Disposición Física del Espacio
+## Requisitos
 
-* Marcar claramente sobre el suelo:
-  * Punto de inicio del robot
-  * Posición inicial de la caja
-  * Ubicación del objetivo final
-* Asegurar:
-  * Caja con peso entre 0.5 kg y 1.5 kg
-  * Arnés de seguridad correctamente instalado
-  * Activación del modo *Main Operation Control*
-  * Conexión de red activa y estable entre el G1 y la estación de control
+* G1 en modo `<span>Main Operation Control</span>` y conectado vía Ethernet
+* PC con Python ≥ 3.6 y dependencias:
 
-#### 1.2 Parametrización Experimental de Trayectorias
-
-**Objetivo:** Determinar los tiempos óptimos por segmento de locomoción, según las distancias físicas reales.
-
-**Procedimiento:**
-
-1. Ejecutar manualmente secuencias de caminata sin carga usando el script interactivo.
-2. Medir distancias entre:
-   * Punto inicial y la caja
-   * Caja y el objetivo final
-3. Ajustar duración de comandos de locomoción (adelante, rotar\_izq, etc.) hasta alcanzar físicamente el punto deseado.
-4. Registrar los parámetros óptimos para luego diligenciar en el sistema de control.
-
-📝 *Ejemplo de estructura en memoria para fase 1:*
-`trayectoria_fase1 = [ ("adelante", 2.3), ("rotar_der", 0.8), ("adelante", 1.7) ]`
-
-### 2. Definición de Posturas con MuJoCo
-
-1. Cargar modelo G1 en MuJoCo:
-   ```bash
-   pip install mujoco
-   python -m mujoco.viewer
-   ```
-2. Mover el robot a mano, pausar y resetear la escena para definir posturas articulares clave.
-3. Registrar manualmente los valores articulares obtenidos (por ejemplo, desde la interfaz de MuJoCo) directamente en el código como diccionarios.
-
-**Ejemplo:**
-
-```bash
-postura_fase1 = {
-"RightShoulderPitch": 0.0,
-"RightElbow": 1.2,
-"RightWristRoll": 1.48,
-...
-}
+```
+pip install numpy pyqtgraph PyQt5
 ```
 
-Fases recomendadas:
+* SDK2 correctamente instalada
+* Robot G1 con al menos 29 DoF (para brazos, torso y muñecas)
 
-* `fase1_approach`: postura de aproximación para agarre
-* `fase2_grasp`: cierre de manos, contacto con la caja
-* `fase3_hold`: brazos replegados con objeto sostenido
-* `fase4_release`: postura para depositar la caja
+## Ejecución
 
-### 3. Ejecución del Script `g1_armsdk_moveV5.py`
+```
+python3 g1_armsdk_moveV5.py <interfazRed>
+```
 
-El script ejecuta cada fase de forma modular con interacción del usuario:
+Ejemplo:
 
-#### 3.1 Movimiento a Posición Cero
+```
+python3 g1_armsdk_moveV5.py eth0
+```
 
-* El robot se posiciona en la postura neutral.
-* Se solicita confirmación para continuar.
+---
 
-#### 3.2 Ingreso de Postura Objetivo
+## Funcionamiento Paso a Paso
 
-Opciones disponibles:
+### 1. Inicialización
 
-1. **Ingreso manual** de cada articulación
-2. **Carga desde estructura en memoria** (por ejemplo, `postura_fase2`)
-   El sistema valida nombres y valores antes de aplicar la postura.
+* Se conectan los canales DDS (`lowstate`, `arm_sdk`) y el `LocoClient`
+* Se extrae el estado inicial de las articulaciones del robot
 
-#### 3.3 Movimiento del Brazo a Postura de Agarre
+### 2. Posición Inicial
 
-* Se aplica la postura de agarre seleccionada.
-* Confirmación para continuar con la locomoción.
+* El robot se mueve automáticamente a la **posición cero** (`q = 0.0`) al inicio
+* Se solicita confirmación antes de continuar.
 
-#### 3.4 Ejecución de Caminata (Opcional)
+### 3. Control de Brazos
 
-Opciones disponibles:
+* Ingreso manual en consola:
+  * Se solicitan los valores en radianes de cada articulación
+  * Presionar **Enter** usa 0.0 por defecto
+  * Escribir `exit` cancela el ingreso actual
+* El robot se mueve suavemente a la postura deseada usando interpolación cosenoidal
 
-1. **Ingreso manual** de:
-   * Dirección (adelante, izquierda, rotar\_der, etc.)
-   * Tiempo (segundos)
-2. **Carga desde estructura en memoria**, como `trayectoria_fase3`
-   Cada paso es mostrado y confirmado antes de ejecutarse con `execute_trajectory_sequence()`.
+### 4. Caminata Parametrizada
 
-#### 3.5 Repetición / Retorno / Finalización
+* Después de cada postura, se pregunta si se desea ejecutar una caminata
+* Opciones:
+  * Ingreso manual paso a paso:
+    * Dirección: `adelante`, `atrás`, `izquierda`, `derecha`, `rotar_izq`, `rotar_der`
+    * Tiempo en segundos
+* Cada movimiento es ejecutado con confirmación y pausa
 
-Opciones luego de cada acción:
+### 5. Repetición o Finalización
 
+Después de cada secuencia:
+
+* Opción de volver a posición cero
 * Ingresar una nueva postura
-* Volver a posición cero
-  Luego de volver a cero:
-* Ingresar otra postura
-* Liberar el control del robot y salir
+* Finalizar el programa
 
-El script finaliza limpiamente, liberando el control del robot de forma segura.
+Al salir:
+
+* El robot se mueve automáticamente a una **posición de descanso** predefinida
+* Se liberan los canales DDS y se cierra el `<span>.csv</span>`
+
+## Salida Generada
+
+Se guarda un archivo CSV en cada ejecución:
+
+```
+data_g1_YYYYMMDD_HHMMSS.csv
+```
+
+Columnas:
+
+```
+timestamp, q_joint15, tau_joint15, ..., q_joint28, tau_joint28
+```
+
+Frecuencia de guardado: cada 500 ciclos de control (aprox. 10s)
+
+## Uso Típico en Escenarios Experimentales
+
+1. **Definir posturas** desde simulador (ej. MuJoCo) o pruebas manuales
+2. **Registrar** esas posturas en código como diccionarios
+3. **Definir trayectorias** en estructuras tipo lista para caminata
+4. Ejecutar cada fase:
+   * Aproximación
+   * Agarre
+   * Caminata con carga
+   * Liberación del objeto
+
+## Notas Técnicas
+
+* Movimiento suave entre posturas gracias a interpolación cosenoidal
+* Validación de posición alcanzada con tolerancia configurable (`<span>0.05</span>` rad por defecto)
+* Modularidad para integrar nuevas posturas o trayectorias fácilmente
+
 

@@ -1,81 +1,88 @@
-# Movimientos Articulares Superiores con Análisis de Torque Unitree G1
+# Control de Articulaciones Superiores del Unitree G1 + Registro de Torque
 
-**Descripción general:**
-Esta prueba está diseñada para controlar y analizar el comportamiento de las articulaciones superiores del robot cuadrúpedo **G1 de Unitree**, evaluando los **torques generados** al aplicar diferentes pesos sobre los brazos del robot, tanto en estado **estático** como en **movimiento de marcha** utilizando el control remoto.
+## Descripción general
+
+Este módulo permite controlar las **articulaciones superiores** del robot cuadrúpedo **G1 de Unitree** y registrar el comportamiento de **posición y torque estimado** en tiempo real. Es ideal para pruebas de carga, validación de movimientos y análisis biomecánico en robótica.
 
 ## Objetivo General
 
-Esta herramienta dual permite:
+Este sistema permite:
 
-* Controlar de forma precisa y flexible las **articulaciones superiores** del robot G1 mediante la **SDK2**.
-* Visualizar en tiempo real los valores de **posición** y **torque estimado** de cada articulación.
-* Ideal para pruebas, validación de movimientos programados y análisis de capacidades articulares.
+- Controlar de forma **manual e interactiva** las articulaciones del G1 mediante la SDK2.
+- Visualizar los valores de posición (`q`) y torque estimado (`τ`) en un archivo `.csv`.-
+- Probar el impacto de **cargas externas** o movimientos sobre el torque de cada articulación.
 
 ## Scripts Utilizados
 
-| Script                                  | Descripción                                                           |
-| --------------------------------------- | ---------------------------------------------------------------------- |
-| `g1_armsdk_moveV4.py`                 | Control interactivo de articulaciones superiores. Soporta modo manual. |
-| `g1_arm_sdk_visualizer_pos_torque.py` | Visualización gráfica en tiempo real de posiciones y torques.        |
+| Script                                | Descripción                                                                |
+| ------------------------------------- | --------------------------------------------------------------------------- |
+| `g1_armsdk_moveV4.py`                 | Control manual de las articulaciones superiores del G1 vía consola.        |
+| `g1_arm_sdk_visualizer_pos_torque.py` | Visualizador gráfico en tiempo real de posiciones y torques desde un`.csv` |
 
-## Script 1: `g1_armsdk_moveV4.py`
+## Script Principal: `g1_armsdk_moveV4.py`
 
 ### Funcionalidad
 
-Permite controlar las articulaciones del G1 por consola.
-
-**Modos de operación:**
-
-* Modo manual: ingreso de posiciones articulares en radianes.
+Controlar manualmente las articulaciones del robot G1 a través de una interfaz por consola.
+Registra automáticamente la posición y torque de cada articulación en un archivo `.csv`.
 
 ### Requisitos
 
-* Conexión Ethernet activa (e.g. `192.168.123.X`)
-* Robot en modo `Main Operation Control` y con arnés de seguridad.
-* SDK2 funcional.
-* Python 3, con:
+* Conexión Ethernet activa con el robot (ej. `eth0`, IP en `192.168.123.X`)
+* Robot G1 en **modo de operación normal** (`Main Operation Control`)
+* SDK2 instalada y funcional
+* Python ≥ 3.6
+* Instalar dependencias:
 
 ```bash
 pip install numpy csv pyqtgraph PyQt5
 ```
 
-* Se recomienda G1 con **29 DoF**.
-* Permisos de escritura para generar `.csv`.
+* Robot G1 con al menos **29 DoF** (para brazos y torso)
+* Permisos de escritura para crear archivos `.csv`
 
 ### Ejecución
 
+Desde la carpeta donde ubicaste el código:
+
 ```bash
-python3 g1_armsdk_moveV4.py eth0
+python3 g1_armsdk_moveV4.py nombreInterfaz
 ```
 
-### Funcionamiento
+### Funcionamiento paso a paso
 
-1. **Inicialización:** conexión con DDS (`lowstate`, `arm_sdk`), verificación de LocoClient.
-2. **Lectura de estado inicial:** punto de partida articular.
-3. **Interfaz interactiva:** ingreso de valores (Enter = 0.0 rad, `exit` = terminar).
-4. **Interpolación:** movimiento suave entre posiciones (default: 5s).
-5. **Liberación:** cierre de canal, guardado del `.csv`.
+1. **Conexión inicial:**
+   * Se conectan los canales `lowstate` y `arm_sdk` vía DDS.
+   * Se espera el primer mensaje de estado (`LowState`).
+2. **Posición inicial:**
+   * El robot se mueve automáticamente a **posición cero** (`q = 0.0`) para comenzar.
+   * Opción: modificar esta lógica para usar una **posición inicial de descanso**.
+3. **Interfaz manual (en consola):**
+   * El usuario ingresa manualmente los valores deseados para cada articulación (en radianes).
+   * Presionar **Enter** sin escribir usa `0.0`.
+   * Escribir `exit` cancela el ingreso actual.
+4. **Movimiento interpolado:**
+   * El robot realiza un movimiento suave hacia la nueva posición objetivo (duración por defecto: 5 segundos).
+   * Se verifica si se alcanzó la posición deseada con una tolerancia de 0.05 rad.
+5. **Registro en `.csv`:**
+   * Cada 500 ciclos de control (\~10s), se guarda en un `.csv` el timestamp, las posiciones `q` y torques `τ` actuales de cada articulación.
+6. **Liberación segura del control:**
+   * Al salir, el robot se mueve a una **posición de descanso predefinida**.
+   * Luego se desactiva `arm_sdk` y se cierra el archivo `.csv`.
 
-### Salida
+### Salida generada
 
-Archivo: `data_g1_YYYYMMDD_HHMMSS.csv`
-Columnas:
-`timestamp, q0, τ0, q1, τ1, ..., qN, τN`
+* Archivo: `data_g1_YYYYMMDD_HHMMSS.csv`
+* Contenido:
+  ```bash
+  timestamp, q_joint15, tau_joint15, ..., q_joint28, tau_joint28
+  ```
 
-## Script 2: `g1_arm_sdk_visualizer_pos_torque.py`
+## Visualizador en Tiempo Real: `g1_arm_sdk_visualizer_pos_torque.py`
 
 ### Funcionalidad
 
-Visualiza en tiempo real los valores de posición (`q`) y torque estimado (`τ`) desde un archivo `.csv`.
-
-### Requisitos
-
-* Python 3
-
-  ```bash
-  pip install pyqtgraph PyQt5
-  ```
-* Archivo `.csv` generado por `g1_armsdk_moveV4.py`.
+Visualiza dinámicamente los valores registrados en el `.csv` generado por el script anterior. Ideal para observar patrones de torque en pruebas con peso o movimiento.
 
 ### Ejecución
 
@@ -83,39 +90,33 @@ Visualiza en tiempo real los valores de posición (`q`) y torque estimado (`τ`)
 python3 g1_arm_sdk_visualizer_pos_torque.py
 ```
 
-Luego, ingresar ruta del `.csv`:
+Se abrirá una ventana gráfica. Ingresa la ruta del archivo `.csv` generado.
 
-```bash
-data_g1_20250409_183200.csv
-```
 
-### Funcionamiento
+### Visualización
 
-* Ventana con dos gráficos:
-  * Posición: línea continua.
-  * Torque: línea punteada.
-* Checkboxes para seleccionar articulaciones.
-* Actualización automática cada 50ms (\~20Hz).
-* Zoom sincronizado.
+* Gráfica 1: posición articular (`q`) – línea continua
+* Gráfica 2: torque estimado (`τ`) – línea punteada
+* Controles:
+  * Checkboxes para seleccionar articulaciones
+  * Zoom sincronizado en ambos gráficos
+  * Actualización automática cada \~50ms (20Hz)
 
-## Uso en Simultáneo
+## Uso en paralelo
 
-1. Terminal 1 (control del robot):
-
+1. En una terminal (para el robot):
+   
    ```bash
-   python3 g1_armsdk_moveV4.py eth0
+   python3 g1_armsdk_moveV4.py nombreInterfaz
    ```
-2. Terminal 2 (visualizador):
-
+2. En otra terminal (para visualización):
+   
    ```bash
    python3 g1_arm_sdk_visualizer_pos_torque.py
    ```
 
-Introduce el mismo archivo `.csv` que se está generando.
-Requiere permisos de **lectura concurrente**.
+Asegúrate de que ambos acceden al mismo archivo `.csv`. El visualizador requiere que el archivo esté siendo actualizado en tiempo real (lectura concurrente).
 
-## Protocolo de Evaluación
 
-1. Colocar diferentes **pesos en los brazos** del robot.
-2. Ejecutar movimientos **estáticos** y luego **dinámicos** (caminata con control remoto).
-3. Evaluar el comportamiento del torque en función del peso y movimiento.
+
+

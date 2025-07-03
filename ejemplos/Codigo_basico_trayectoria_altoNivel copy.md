@@ -1,39 +1,70 @@
-# **Movimiento Automático Predefinido: API loco_client en el G1 de Unitree**
+# **Movimiento Automático Predefinido: API `loco_client` en el G1 de Unitree**
 
-
-Este documento describe cómo ejecutar una prueba de movimiento automático utilizando la API `loco_client` en el robot **G1 de Unitree**, siguiendo una trayectoria programada.
+Este documento describe cómo ejecutar una secuencia automática de movimientos utilizando la API `loco_client` en el robot **G1 de Unitree**, como parte de un reto de locomoción básica.
 
 ## **Requisitos Previos**
 
-1. **Robot G1 en el suelo y en un entorno seguro para moverse.**
+1. Robot **G1 en el suelo**, con espacio libre para desplazarse.
 2. **PC conectado al robot vía Ethernet.**
-3. **Entorno con la SDK de Python de Unitree correctamente configurado.**
-4. **Archivo `g1_moveInTime.py` ubicado en:**
+3. SDK de Python de Unitree correctamente configurada.
+4. Archivo `g1_moveInTime.py` ubicado en:
+
    ```bash
    ~/unitree_sdk2_python/example/g1/high_level/
    ```
 
-### **⚠️ Precaución**
+### **Precaución**
 
-🔴 El robot se moverá de forma automática para ejecutar un cuadrado. Asegúrate de que esté en una superficie plana, estable y sin obstáculos antes de iniciar.
+🔴 El robot realizará movimientos automáticos en forma de cuadrado y un gesto de saludo.
+Antes de ejecutar, asegúrate de:
 
-## **Ejecución**
+- Estar en una superficie plana, estable y sin obstáculos.
+
+- Tener el robot encendido y en modo normal (cero torque al inicio).
+
+- Activar el modo de operación (R1 + X) desde el control remoto cuando el script lo indique.
+
+### Ejecución
 
 Desde la carpeta high_level, ejecutar:
 
-```bash
+```echarts
 python3 g1_moveInTime.py nombreInterfaz
 ```
 
-Reemplazar nombreInterfaz con la interfaz de red correspondiente.
 
+📌 Reemplaza nombreInterfaz por el nombre de la interfaz de red correspondiente (ej. eno1, eth0).
 
-Al iniciar, el programa pedirá inicializar el estado de main operation control del robot con el control remoto. Una vez listo, comenzará a ejecutar un patrón cuadrado de movimiento automáticamente.
+El script pedirá confirmaciones antes de iniciar la secuencia. Luego realizará automáticamente:
 
-### **Notas Adicionales**
+- Cuatro desplazamientos con giros de 90° simulando un cuadrado.
 
-- Verifica la conectividad con el robot antes de iniciar.
-- Asegura que el área esté despejada.
-- Para detener la ejecución, presiona Esc o interrumpe el proceso en la terminal.
+- Un gesto de saludo final con la "mano" del robot.
 
+- Detención segura del robot.
 
+## **¿Qué hace exactamente el script?** 
+
+- Se conecta al robot y lo pone de pie con la API loco_client.
+
+- Ejecuta 4 movimientos hacia adelante y 4 giros para trazar un cuadrado.
+
+- Luego realiza un gesto de saludo usando client.WaveHand().
+
+- Finalmente, detiene cualquier movimiento activo.
+
+## **Recomendaciones**
+
+- Si el robot no se mueve, asegúrate de activar el control remoto en modo operación (R1 + X).
+
+- Mantén siempre un área libre alrededor del robot durante la prueba.
+
+- Para detener la ejecución antes de tiempo, presiona Ctrl+C en la terminal.
+
+## **¿Problemas comunes?**
+
+El robot no responde → Verifica la conexión Ethernet, que la interfaz de red esté bien escrita y que esté en modo operación.
+
+No se detiene → Usa Ctrl+C y asegúrate de que se haya ejecutado client.StopMove() en el finally.
+
+¡Y listo! Tu G1 ejecutará un pequeño reto autónomo para demostrar sus capacidades de locomoción y gesticulación

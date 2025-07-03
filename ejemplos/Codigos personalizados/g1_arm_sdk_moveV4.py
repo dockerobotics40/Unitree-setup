@@ -25,6 +25,7 @@ en pruebas con sus brazos, cintura y otras articulaciones superiores.
 - Movimiento interpolado suave entre posiciones.
 - Liberación progresiva del control para mayor seguridad.
 """
+# Versión editada de g1_arm_sdk_moveV4.py con entrada solo manual y posición de descanso al liberar
 
 import time
 import sys
@@ -34,7 +35,6 @@ import math
 import csv
 from datetime import datetime
 
-# Importación de módulos de la SDK de Unitree para comunicación y control
 from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
 from unitree_sdk2py.core.channel import ChannelSubscriber
 from unitree_sdk2py.idl.default import unitree_hg_msg_dds__LowCmd_
@@ -45,365 +45,217 @@ from unitree_sdk2py.utils.crc import CRC
 from unitree_sdk2py.utils.thread import RecurrentThread
 
 class G1JointIndex:
-    """
-    Índices de las articulaciones del robot G1 de Unitree.
-    Se incluyen piernas, brazos y cintura.
-    """
-    # Pierna izquierda
-    LeftHipPitch = 0
-    LeftHipRoll = 1
-    LeftHipYaw = 2
-    LeftKnee = 3
-    LeftAnklePitch = 4
-    LeftAnkleB = 4
-    LeftAnkleRoll = 5
-    LeftAnkleA = 5
-
-    # Pierna derecha
-    RightHipPitch = 6
-    RightHipRoll = 7
-    RightHipYaw = 8
-    RightKnee = 9
-    RightAnklePitch = 10
-    RightAnkleB = 10
-    RightAnkleRoll = 11
-    RightAnkleA = 11
-
-    # Cintura
-    WaistYaw = 12
-    WaistRoll = 13        # No válido para G1 23DoF/29DoF con cintura bloqueada
-    WaistA = 13           # No válido para G1 23DoF/29DoF con cintura bloqueada
-    WaistPitch = 14       # No válido para G1 23DoF/29DoF con cintura bloqueada
-    WaistB = 14           # No válido para G1 23DoF/29DoF con cintura bloqueada
-
-    # Brazo izquierdo
     LeftShoulderPitch = 15
     LeftShoulderRoll = 16
     LeftShoulderYaw = 17
     LeftElbow = 18
     LeftWristRoll = 19
-    LeftWristPitch = 20   # No válido para G1 23DoF
-    LeftWristYaw = 21     # No válido para G1 23DoF
-
-    # Brazo derecho
+    LeftWristPitch = 20
+    LeftWristYaw = 21
     RightShoulderPitch = 22
     RightShoulderRoll = 23
     RightShoulderYaw = 24
     RightElbow = 25
     RightWristRoll = 26
-    RightWristPitch = 27  # No válido para G1 23DoF
-    RightWristYaw = 28    # No válido para G1 23DoF
+    RightWristPitch = 27
+    RightWristYaw = 28
+    WaistYaw = 12
+    WaistRoll = 13
+    WaistPitch = 14
+    kNotUsedJoint = 29
 
-    kNotUsedJoint = 29  # Articulación no utilizada (peso)
-    
 class Custom:
-    """Clase para controlar los movimientos del robot G1 de Unitree."""
     def __init__(self):
-        self.lock = threading.Lock()  # Bloqueo para sincronización
-        self.control_dt_ = 0.02  # Intervalo de control (20 ms)
-        self.kp = 60.  # Ganancia proporcional
-        self.kd = 1.5  # Ganancia derivativa
-        self.low_cmd = unitree_hg_msg_dds__LowCmd_()  
-        self.low_state = None  
+        self.lock = threading.Lock()
+        self.control_dt_ = 0.02
+        self.kp = 60.
+        self.kd = 1.5
+        self.low_cmd = unitree_hg_msg_dds__LowCmd_()
+        self.low_state = None
         self.first_update_low_state = False
         self.crc = CRC()
-        self.done = False  
-        self.current_stage = 0  
-        self.T = 5.0  # Duración del movimiento
-        self.t = 0.0  
-        self.is_moving = False  # Inicialización corregida
-        self.stop_event = threading.Event()  # Para evitar bloqueos indefinidos en move_to()
+        self.stop_event = threading.Event()
+        self.T = 5.0
+        self.t = 0.0
+        self.is_moving = False
 
-        # Lista de articulaciones controladas
         self.arm_joints = [
-            G1JointIndex.LeftShoulderPitch,  G1JointIndex.LeftShoulderRoll,
-            G1JointIndex.LeftShoulderYaw,    G1JointIndex.LeftElbow,
-            G1JointIndex.LeftWristRoll,      G1JointIndex.LeftWristPitch,
+            G1JointIndex.LeftShoulderPitch, G1JointIndex.LeftShoulderRoll,
+            G1JointIndex.LeftShoulderYaw, G1JointIndex.LeftElbow,
+            G1JointIndex.LeftWristRoll, G1JointIndex.LeftWristPitch,
             G1JointIndex.LeftWristYaw,
             G1JointIndex.RightShoulderPitch, G1JointIndex.RightShoulderRoll,
-            G1JointIndex.RightShoulderYaw,   G1JointIndex.RightElbow,
-            G1JointIndex.RightWristRoll,     G1JointIndex.RightWristPitch,
+            G1JointIndex.RightShoulderYaw, G1JointIndex.RightElbow,
+            G1JointIndex.RightWristRoll, G1JointIndex.RightWristPitch,
             G1JointIndex.RightWristYaw,
-            G1JointIndex.WaistYaw,
-            G1JointIndex.WaistRoll,
-            G1JointIndex.WaistPitch
+            G1JointIndex.WaistYaw, G1JointIndex.WaistRoll, G1JointIndex.WaistPitch
         ]
 
-        self.target_pos = {joint: 0.0 for joint in self.arm_joints}  
-        self.alpha = 0.05  
-        
-        #Creación del CSV
+        self.release_position = {
+            G1JointIndex.LeftShoulderPitch: 0.294,
+            G1JointIndex.LeftShoulderRoll: 0.227,
+            G1JointIndex.LeftShoulderYaw: -0.0255,
+            G1JointIndex.LeftElbow: 0.967,
+            G1JointIndex.LeftWristRoll: 0.0794,
+            G1JointIndex.LeftWristPitch: 0.0221,
+            G1JointIndex.LeftWristYaw: 0.0030,
+            G1JointIndex.RightShoulderPitch: 0.292,
+            G1JointIndex.RightShoulderRoll: -0.225,
+            G1JointIndex.RightShoulderYaw: 0.0308,
+            G1JointIndex.RightElbow: 0.969,
+            G1JointIndex.RightWristRoll: -0.147,
+            G1JointIndex.RightWristPitch: 0.0286,
+            G1JointIndex.RightWristYaw: 0.0085,
+            G1JointIndex.WaistYaw: -0.0033,
+            G1JointIndex.WaistRoll: 0.0,
+            G1JointIndex.WaistPitch: 0.0
+        }
+
+        self.target_pos = {joint: 0.0 for joint in self.arm_joints}
+
         self.csv_file = open(f"data_g1_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", mode="w", newline="")
         self.csv_writer = csv.writer(self.csv_file)
-
-        # Escribe encabezado del CSV
-                
         header = ["timestamp"]
-        
         for joint in self.arm_joints:
             header.extend([f"q_joint{joint}", f"tau_joint{joint}"])
         self.csv_writer.writerow(header)
-
-        
         self.sample_count = 0
 
     def Init(self):
-        """Inicializa la comunicación con el robot."""
-        # Publicador para enviar comandos al robot
         self.arm_sdk_publisher = ChannelPublisher("rt/arm_sdk", LowCmd_)
         self.arm_sdk_publisher.Init()
-
-        # Suscriptor para recibir el estado del robot
         self.lowstate_subscriber = ChannelSubscriber("rt/lowstate", LowState_)
         self.lowstate_subscriber.Init(self.LowStateHandler, 10)
-        
-        
+
     def Start(self):
-        """Espera el primer estado del robot y comienza el control."""
-        try:
-            self.lowCmdWriteThreadPtr = RecurrentThread(
-                interval=self.control_dt_, target=self.LowCmdWrite, name="control"
-            ) 
-
-            while not self.first_update_low_state:
-                time.sleep(1)
-
-            if self.first_update_low_state: 
-                for joint in self.arm_joints:
-                    self.target_pos[joint] = self.low_state.motor_state[joint].q#Se toma posicion inicial
-                self.lowCmdWriteThreadPtr.Start()
-                self.run_sequence()
-        except KeyboardInterrupt:
-            print("\nInterrupción detectada. Liberando el control...")
-            self.release_control()
-            return
-
+        from unitree_sdk2py.utils.thread import RecurrentThread
+        while not self.first_update_low_state:
+            time.sleep(1)
+        for joint in self.arm_joints:
+            self.target_pos[joint] = self.low_state.motor_state[joint].q
+        self.lowCmdWriteThreadPtr = RecurrentThread(
+            interval=self.control_dt_, target=self.LowCmdWrite, name="control")
+        self.lowCmdWriteThreadPtr.Start()
+        self.run_sequence()
 
     def LowStateHandler(self, msg: LowState_):
-        """Recibe y actualiza el estado del robot."""
-        with self.lock:  # Protección contra concurrencia
+        with self.lock:
             self.low_state = msg
-
         if not self.first_update_low_state:
             self.first_update_low_state = True
-            
         self.sample_count += 1
         if self.sample_count % 500 == 0:
             self.sample_count = 0
-            # Guardar los valores de torque en el CSV
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
-            row = [timestamp]
-
+            row = [datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")]
             for joint in self.arm_joints:
-                tau = msg.motor_state[joint].tau_est
-                q = msg.motor_state[joint].q
-                row.extend([q, tau])
-
+                row.extend([msg.motor_state[joint].q, msg.motor_state[joint].tau_est])
             self.csv_writer.writerow(row)
 
     def interpolate_position(self, q_init, q_target):
-        """Interpolación de posición para un movimiento suave."""
         ratio = (1 - math.cos(math.pi * (self.t / self.T))) / 2 if self.t < self.T else 1.0
         return q_init + (q_target - q_init) * ratio
 
     def LowCmdWrite(self):
-        """Interpolación sinusoidal y envío de comandos al robot."""
         if self.low_state is None:
-            return  # No enviar comandos si no hay estado disponible
-
-        with self.lock:  
-            self.low_cmd.motor_cmd[G1JointIndex.kNotUsedJoint].q =  1 # 1:Enable arm_sdk, 0:Disable arm_sdk
-            for  joint in self.arm_joints:
-                q_init = self.low_state.motor_state[joint].q
-                q_target = self.target_pos[joint]
-                q_interpolated = self.interpolate_position(q_init, q_target)
-
-                self.low_cmd.motor_cmd[joint].q = q_interpolated
+            return
+        with self.lock:
+            self.low_cmd.motor_cmd[G1JointIndex.kNotUsedJoint].q = 1
+            for joint in self.arm_joints:
+                q_interp = self.interpolate_position(
+                    self.low_state.motor_state[joint].q,
+                    self.target_pos[joint])
+                self.low_cmd.motor_cmd[joint].q = q_interp
                 self.low_cmd.motor_cmd[joint].tau = 0.
                 self.low_cmd.motor_cmd[joint].dq = 0.
                 self.low_cmd.motor_cmd[joint].kp = self.kp
                 self.low_cmd.motor_cmd[joint].kd = self.kd
-
-            self.low_cmd.crc = self.crc.Crc(self.low_cmd)  
-            self.arm_sdk_publisher.Write(self.low_cmd)  
-
-        with self.lock:
-            self.t += self.control_dt_
-            if self.t >= self.T:  
-                self.is_moving = False  # Asegurar que se detenga la interpolación
+            self.low_cmd.crc = self.crc.Crc(self.low_cmd)
+            self.arm_sdk_publisher.Write(self.low_cmd)
+        self.t += self.control_dt_
+        if self.t >= self.T:
+            self.is_moving = False
 
     def move_to(self, target_positions, max_wait_time=6.0):
-        """Mueve el robot a la posición objetivo asegurando que la interpolación se complete."""
-        with self.lock:
-            self.target_pos = target_positions
-            self.t = 0.0  
-            self.is_moving = True
-            self.stop_event.clear()
-
+        self.target_pos = target_positions
+        self.t = 0.0
+        self.is_moving = True
+        self.stop_event.clear()
         start_time = time.time()
-
-        while True:
-            with self.lock:
-                if not self.is_moving:
-                    print("Movimiento completado.")
-                    break
-
+        while self.is_moving:
             if time.time() - start_time > max_wait_time:
-                print("Advertencia: Tiempo de espera excedido. Posición no alcanzada.")
+                print("Tiempo de espera excedido.")
                 break
-
             if self.stop_event.is_set():
-                print("Movimiento detenido por solicitud.")
+                print("Movimiento interrumpido.")
                 break
-
-            if self.has_reached_position(target_positions, tolerance=0.05):
-                print("Posición alcanzada con éxito.")
+            if self.has_reached_position(target_positions):
+                print("Posición alcanzada.")
                 break
-
             time.sleep(self.control_dt_)
 
-
     def has_reached_position(self, target_positions, tolerance=0.05):
-        """Verifica si el robot ha alcanzado la posición objetivo."""
-        if self.low_state is None:
-            return False
-
-        for joint in self.arm_joints:
-            if joint not in target_positions:
-                continue  # Evita errores si falta alguna articulación
-            if abs(self.low_state.motor_state[joint].q - target_positions[joint]) > tolerance:
-                return False
-        return True
+        return all(abs(self.low_state.motor_state[j].q - target_positions[j]) <= tolerance
+                   for j in self.arm_joints if j in target_positions)
 
     def release_control(self):
-        """Libera el control de manera progresiva."""
-        self.stop_event.set()  # Detener posibles movimientos bloqueantes
-        
-        duration = 2.0  # Duración de la transición en segundos
-        steps = int(duration / self.control_dt_)  # Cantidad de pasos según dt
-        
-        for step in range(steps):
-            with self.lock:
-                ratio = (step + 1) / steps  # Interpolación lineal de 0 a 1
-                self.low_cmd.motor_cmd[G1JointIndex.kNotUsedJoint].q = 1 - ratio  # 1:Enable arm_sdk, 0:Disable arm_sdk
-
-                self.low_cmd.crc = self.crc.Crc(self.low_cmd)  # Actualizar CRC
-                self.arm_sdk_publisher.Write(self.low_cmd)  # Enviar comando
-
-                time.sleep(self.control_dt_)  # Esperar 20ms por cada iteración  
-        
-        self.csv_file.close()  # Cierra archivo CSV correctamente
-        print("Archivo CSV cerrado.")
-        print("\nControl liberado completamente.")
-        
-    def get_user_joint_positions(self):
-        """Permite al usuario configurar las posiciones deseadas de las articulaciones."""
-        target_pos = {joint: 0.0 for joint in self.arm_joints}
-        print("\nConfiguración de posiciones articulares:")
-
+        print("\n➡️ Moviendo a posición de descanso...")
+        self.move_to(self.release_position)
         for joint in self.arm_joints:
-            joint_name = next((name for name, value in G1JointIndex.__dict__.items() if value == joint), None)
-            if joint_name is None:
-                continue  # Evita nombres inválidos
+            self.low_cmd.motor_cmd[joint].q = self.low_state.motor_state[joint].q
+            self.low_cmd.motor_cmd[joint].dq = 0.0
+            self.low_cmd.motor_cmd[joint].tau = 0.0
+            self.low_cmd.motor_cmd[joint].kp = 0.0
+            self.low_cmd.motor_cmd[joint].kd = 0.0
+        self.low_cmd.motor_cmd[G1JointIndex.kNotUsedJoint].q = 0
+        self.low_cmd.crc = self.crc.Crc(self.low_cmd)
+        self.arm_sdk_publisher.Write(self.low_cmd)
+        self.csv_file.close()
+        print("📁 CSV cerrado. Control liberado.")
 
-            while True:
-                user_input = input(f"Ingrese posición para {joint_name} (rad) o deje vacío para 0 (Escriba 'exit' para salir): ")
-                
-                if user_input.lower() == "exit":
-                    print("\nCancelando configuración y volviendo al menú principal.")
-                    self.release_control()
-                    return None  # Indica que el usuario quiere salir
-                
-                if user_input.strip() == "":
-                    target_pos[joint] = 0.0
-                    break  # Continúa con la siguiente articulación
-                
-                try:
-                    pos = float(user_input)
-                    target_pos[joint] = pos
-                    break  # Continúa con la siguiente articulación
-                except ValueError:
-                    print("Entrada no válida. Intente de nuevo.")
-
-        return target_pos
-    def get_arm_positions_from_user_or_file(self):
-        print("\n¿Deseas ingresar posiciones manualmente o cargar desde archivo?")
-        print("1. Ingresar manualmente")
-        print("2. Cargar desde archivo .txt")
-        choice = input("Seleccione una opción (1/2): ").strip()
-
-        if choice == "1":
-            return self.get_user_joint_positions()
-        elif choice == "2":
-            file_path = input("Ingrese la ruta del archivo .txt: ").strip()
-            try:
-                with open(file_path, 'r') as file:
-                    positions = {}
-                    for line in file:
-                        joint, value = line.strip().split()
-                        positions[joint] = float(value)
-                    return positions
-            except Exception as e:
-                print(f" Error al leer el archivo: {e}")
+    def get_user_joint_positions(self):
+        pos = {}
+        for joint in self.arm_joints:
+            name = next((k for k, v in G1JointIndex.__dict__.items() if v == joint), str(joint))
+            val = input(f"{name} (rad, enter = 0): ")
+            if val.lower() == 'exit':
                 return None
-        else:
-            print("Opción inválida. Cancelando entrada.")
-            return None
+            try:
+                pos[joint] = float(val) if val.strip() else 0.0
+            except:
+                print("❌ Entrada inválida.")
+                return None
+        return pos
 
     def run_sequence(self):
-        """Ejecuta la secuencia de movimientos con opciones dinámicas del usuario."""
-        input("\nMoviendo a posición cero... Presione Enter para continuar.")
+        input("Presiona Enter para mover a cero...")
         self.move_to({joint: 0.0 for joint in self.arm_joints})
-
         while True:
-            print("\nOpciones:")
-            print("1. Ingresar nueva posición objetivo")
-            print("2. Volver a posición cero")
-            
-            option = input("Seleccione una opción (1/2): ").strip()
-            
-            if option == "1":
-                target_positions = self.get_arm_positions_from_user_or_file()
-                if target_positions is None:
-                    print("\nCancelando la secuencia.")
-                    continue  # Volver al menú principal
-
-                self.move_to(target_positions)
-
-            elif option == "2":
+            print("\nMenú:")
+            print("1. Ingresar nueva posición")
+            print("2. Volver a cero")
+            opt = input("Opción (1/2): ")
+            if opt == '1':
+                pos = self.get_user_joint_positions()
+                if pos:
+                    self.move_to(pos)
+            elif opt == '2':
                 self.move_to({joint: 0.0 for joint in self.arm_joints})
-                print("\nOpciones tras volver a cero:")
-                print("1. Ingresar otra posición objetivo")
-                print("2. Liberar control y salir")
-
-                sub_option = input("Seleccione una opción (1/2): ").strip()
-                if sub_option == "1":
-                    continue  # Volver al menú principal
-                elif sub_option == "2":
-                    input("\nLiberando el control... Presione Enter para continuar.")
+                print("\n1. Nueva posición\n2. Salir y liberar control")
+                sub = input("Opción (1/2): ")
+                if sub == '1':
+                    continue
+                elif sub == '2':
+                    input("Presiona Enter para liberar...")
                     self.release_control()
-                    print("\nControl liberado. Saliendo del programa...")
-                    sys.exit(0)  # Salida limpia tras liberar el control
-                else:
-                    print("Opción inválida. Regresando al menú principal.")
-
-            else:
-                print("Opción inválida. Intente nuevamente.")
-
+                    sys.exit(0)
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print(f"Uso: python3 {sys.argv[0]} networkInterface")
+        print(f"Uso: python3 {sys.argv[0]} <interfaz>")
         sys.exit(-1)
-
-    print("ADVERTENCIA: Asegúrese de que no haya obstáculos cerca del robot.")
-    input("Presione Enter para continuar...")
-
-    if len(sys.argv) > 1:
-        ChannelFactoryInitialize(0, sys.argv[1])
-    else:
-        ChannelFactoryInitialize(0)
-
+    print("⚠️ Asegúrate de que no haya obstáculos cerca del robot.")
+    input("Presiona Enter para continuar...")
+    ChannelFactoryInitialize(0, sys.argv[1])
     custom = Custom()
     custom.Init()
     custom.Start()
