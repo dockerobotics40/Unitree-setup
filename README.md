@@ -11,41 +11,44 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 ```bash
 📦 unitree-setup  
 .
+├── LICENSE
 ├── README.md
 ├── docs
 │   ├── FAQ.md
 │   ├── Instalacion_driver_LiDAR_LIVOX360.md
 │   ├── Instalacion_driver_depth_camera.md
+│   ├── Instalacion_recursos_simulacion.md
 │   ├── Instalacion_unitree_ros2.md
 │   ├── Instalacion_unitree_sdk2.md
 │   ├── Instalacion_unitree_sdk2_python.md
 ├── ejemplos
 │   ├──  Secuencia_de_Ejecucion.md
 │   ├── Codigo_basico_brazos_caminata.md
-│   ├── Codigo_basico_movimientoBrazo_personalizado.md
-│   ├── Codigo_basico_movimientos_altoNivel.md
+│   ├── Codigo_basico_trayectoria_altoNivel copy.md
+│   ├── Codigo_basico_wasd_altoNivel.md
 │   ├── Codigo_movimento_articulaciones_brazos_interactivo.md
 │   ├── Codigos personalizados
-│   │   ├── g1_arm_sdk_moveV2.py
-│   │   ├── g1_arm_sdk_moveV3.py
 │   │   ├── g1_arm_sdk_moveV4.py
 │   │   ├── g1_arm_sdk_moveV5.py
 │   │   ├── g1_arm_sdk_visualizer_pos_torque.py
 │   │   ├── g1_autonomusV1.py
-│   │   ├── g1_autonomusWithArmV11.py
 │   │   ├── g1_moveInTime_control.py
 │   │   ├── g1_odometry.py
 │   │   └── g1_wasd_control.py
+│   ├── Codigos simulacion
+│   │   ├── aplaudir.txt
+│   │   ├── g1_arms_example.py
+│   │   ├── g1_low_level_example.py
+│   │   ├── saludoR.txt
+│   │   └── test_unitree_sdk2_mod.py
 │   ├── Conexion_robotG1.md
 │   ├── Conexion_wifi_PC2.md
 │   ├── Ejemplo_acceso_sensores_ROS2.md
 │   ├── Ejemplo_alto_nivel.md
 │   ├── Ejemplo_bajo_nivel.md
 │   ├── Ejemplo_movimiento_brazos.md
-│   ├── Navegacion_autonoma_con_brazos.md
 │   ├── Protocolo_navegación_autonoma.md
-│   ├── Visualizacion_info_LiDAR.md
-│   ├── Visualizacion_info_camaraDepth.md
+│   ├── Simulacion_G1_Mujoco.md
 └── repositorios
     └── Enlaces_repositorios.md
 ```
@@ -77,7 +80,7 @@ Una vez instalado el SDK2 en python/C++, paquete de ROS2 para Unitree, drivers y
 
 ### 🤝 [Conocer al Equipo](https://robotics40.com/)
 
-Somos Robotics 4.0, una empresa lider en robótica en Colombia que busca innovar y desarrollar herramientas accesibles para la comunidad. 
+Somos Robotics 4.0, una empresa lider en robótica en Colombia que busca innovar y desarrollar herramientas accesibles para la comunidad.
 
 ### 📜 Licencia
 
