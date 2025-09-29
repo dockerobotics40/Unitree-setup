@@ -49,6 +49,22 @@ Este repositorio es una **condensación de todos los recursos disponibles** sobr
 │   ├── Ejemplo_movimiento_brazos.md
 │   ├── Protocolo_navegación_autonoma.md
 │   ├── Simulacion_G1_Mujoco.md
+│   └── images
+│       ├── Conexion_robotG1
+│       │   ├── 1743698697251.png
+│       │   ├── 1743698725476.png
+│       │   └── 1743698739924.png
+│       ├── Conexion_wifi_PC2
+│       │   └── 1743698806090.png
+│       ├── Ejemplo_acceso_sensores_ROS2
+│       │   ├── 1743698878139.png
+│       │   ├── 1743698953466.png
+│       │   └── 1743698986524.png
+│       └── Simulacion_G1_Mujoco
+│           ├── 1759167980800.png
+│           ├── 1759168040102.png
+│           ├── 1759168104008.png
+│           └── 1759168133309.png
 └── repositorios
     └── Enlaces_repositorios.md
 ```
