@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
 """
+# -----------------------------------------------------------------------------
+# © 2025 Robotics 4.0.
+# Este archivo forma parte de ejemplos y guías de uso distribuidos bajo
+# la Licencia Apache 2.0.
+#
+# Puedes usarlo, modificarlo y redistribuirlo libremente citando la fuente.
+# Nota: Este código es de carácter ilustrativo y no corresponde al producto
+# completo de Robotics 4.0.
+# -----------------------------------------------------------------------------
 Unitree G1 Robot Control Script
 This script provides keyboard-based control for the Unitree G1 robot using WASD keys.
 """

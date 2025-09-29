@@ -1,4 +1,13 @@
 """
+# -----------------------------------------------------------------------------
+# © 2025 Robotics 4.0.
+# Este archivo forma parte de ejemplos y guías de uso distribuidos bajo
+# la Licencia Apache 2.0.
+#
+# Puedes usarlo, modificarlo y redistribuirlo libremente citando la fuente.
+# Nota: Este código es de carácter ilustrativo y no corresponde al producto
+# completo de Robotics 4.0.
+# -----------------------------------------------------------------------------
 @file g1_autonomousV1.py
 @author Sofía Milagros Castaño Vanegas - Robotics 4.0 Team
 @date 2025-04-21

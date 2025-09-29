@@ -59,6 +59,7 @@ Aquí encontrarás guías detalladas para instalar:
 - SDK2 de Unitree para python y C++
 - Unitree_ROS2 para manejo de G1 desde ROS2
 - Drivers para uso del LiDAR y cámara integrados
+- Entorno de simulación en Mujoco para validar desarrollos y controladores personalizados.
 
 📍 Para empezar, consulta la guía de instalación del SDK2 de Unitree en [docs/Instalacion_unitree_SDK2.md](docs/Instalacion_unitree_sdk2.md).
 
@@ -74,9 +75,16 @@ Una vez instalado el SDK2 en python/C++, paquete de ROS2 para Unitree, drivers y
 
 📚 Puedes encontrar los ejemplos en la carpeta examples/.
 
-🤝 Conocer al Equipo
-Somos Robotics 4.0, un equipo de entusiastas de la robótica que busca innovar y desarrollar herramientas accesibles para la comunidad.
+### 🤝 [Conocer al Equipo](https://robotics40.com/)
 
-📜 Licencia
-Este proyecto sigue la licencia MIT.
+Somos Robotics 4.0, una empresa lider en robótica en Colombia que busca innovar y desarrollar herramientas accesibles para la comunidad. 
+
+### 📜 Licencia
+
+El código de este repositorio se distribuye bajo la **Licencia Apache 2.0**.
+Esto significa que puedes usarlo, modificarlo y redistribuirlo libremente, siempre y cuando mantengas el aviso de copyright y la referencia a Robotics 4.0.
+
+**Nota importante:**
+Este repositorio contiene **ejemplos y guías de uso**. No representa el producto completo desarrollado por Robotics 4.0.
+Para soluciones empresariales completas, soporte o integración, por favor contáctanos en: contacto@robotics40.com.
 
