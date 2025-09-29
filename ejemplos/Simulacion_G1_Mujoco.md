@@ -1,6 +1,6 @@
 # Interacción del Simulador Unitree Mujoco con el Robot G1
 
-Una vez realizados los pasos de la guía [docs/Instalacion_recursos_simulacion.md](./docs/Instalacion_recursos_simulacion.md).
+Una vez realizados los pasos de la guía [docs/Instalacion_recursos_simulacion.md](../docs/Instalacion_recursos_simulacion.md).
 
 ## 1. Configuración de la simulación
 
