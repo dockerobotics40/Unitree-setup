@@ -63,7 +63,7 @@ sudo apt install libyaml-cpp-dev
 
 ## 5. Compilar **Unitree Mujoco**
 
-Clona el repositorio e instala:
+Clona el repositorio e instala, es necesario tener correctamente instaladas [unitree_sdk2](/docs/Instalacion_unitree_sdk2.md) y [unitree_sdk2_python](/docs/Instalacion_unitree_sdk2_python.md) :
 
 ```bash
 git clone https://github.com/unitreerobotics/unitree_mujoco.git
@@ -84,6 +84,7 @@ Ejecuta el simulador con el robot Go2 dentro de `cd ~/unitree_mujoco/simulate/bu
 Deberías ver el robot Go2 cargado en Mujoco.
 
 ![1759163780059](images/Instalación_recursos_simulación/1759163780059.png)
+
 ## 7. Alternativa en Python
 
 También puedes usar Mujoco con Python para simulación más rápida.
@@ -117,7 +118,6 @@ python3 ./test/test_unitree_sdk2.py
 
 El programa imprimirá la pose y posición del robot, y cada motor aplicará 1Nm de torque.
 ![1759164256361](images/Instalación_recursos_simulación/1759164256361.png)
-
 
 ## Posibles errores y soluciones
 
