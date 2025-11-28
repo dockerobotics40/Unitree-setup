@@ -75,22 +75,22 @@ def initialize_robot(network_interface):
     client.SetTimeout(10.0)
     client.Init()
     
-    # Initialize robot state
-    print("Setting initial state...")
-    client.Damp()
-    time.sleep(INIT_DELAY)
+    # # Initialize robot state
+    # print("Setting initial state...")
+    # client.Damp()
+    # time.sleep(INIT_DELAY)
     
-    print("Standing up...")
-    client.StandUp()
-    time.sleep(STARTUP_DELAY)
+    # print("Standing up...")
+    # client.StandUp()
+    # time.sleep(STARTUP_DELAY)
     
-    print("Setting robot in balance stand mode...")
-    client.BalanceStand(0)
-    time.sleep(2) 
+    # print("Setting robot in balance stand mode...")
+    # client.BalanceStand(0)
+    # time.sleep(2) 
     
-    print("Starting robot please run in the control R1 + X...")
-    ##client.Start()
-    time.sleep(COMMAND_DELAY)
+    # print("Starting robot please run in the control R1 + X...")
+    # ##client.Start()
+    # time.sleep(COMMAND_DELAY)
     
     print("Robot started")
     

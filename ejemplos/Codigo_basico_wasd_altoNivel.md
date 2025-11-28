@@ -6,7 +6,7 @@ Este documento describe cómo ejecutar una prueba de movimiento manual utilizand
 
 **Asegurate de tener:**
 
-1. **Robot G1 colgado en modo normal (cero torque).**
+1. **Robot G1 colgado en modo normal (R1 + X).**
 2. **PC conectado al robot vía Ethernet.**
 3. **Entorno con la SDK de Python de Unitree correctamente configurado.**
 4. **Archivo `g1_wasd_control.py` ubicado en:**
@@ -27,8 +27,7 @@ Remplazar nombreInterfaz con la interfaz de red correspondiente (ej. eno1, eth0)
 Luego, sigue las instrucciones en la terminal:
 
 1. Espera a que el robot se inicialice.
-2. Usa el control remoto del G1 para colocarlo en **Main Operation Control**.
-3. Cuando aparezca:
+2. Cuando aparezca:
    
    ```bCurrent
    Current Status: Robot Ready

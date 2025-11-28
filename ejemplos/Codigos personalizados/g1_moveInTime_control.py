@@ -62,17 +62,7 @@ def initialize_robot(network_interface):
     client.Init()  # Inicializa el cliente de locomoción
 
     # Secuencia de activación del robot
-    print("Iniciando robot...")
-    client.Damp()  # Desactiva rigidez para asegurar un inicio seguro
-    time.sleep(1.0)
-
-    client.StandUp()  # Ordena al robot ponerse de pie
-    time.sleep(3.0)   # Espera a que termine la acción
-
-    print("Iniciando el robot por favor correr en el control R1 + X...")
-    ##client.Start()
-    time.sleep(7.0)
-        
+    print("Iniciando robot...")      
 
     print("Robot listo para moverse una vez este seguro y con espacio.")
     return client
