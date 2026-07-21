@@ -6,12 +6,14 @@
 #   python3 g1_23dof_physical_selector.py eth0
 #
 # Estructura esperada:
-#   tools_fisica/
+#   23_arm_sdk/
 #   ├── g1_23dof_physical_selector.py
-#   └── poses_json/
-#       ├── 0_pose_segura.json
-#       ├── 1_saludo_derecha.json
-#       └── ...
+#   Codigos simulacion
+#   └── 23 dof/
+#        └── poses_json/
+#           ├── 0_pose_segura.json
+#           ├── 1_saludo_derecha.json
+#       └    ── ...
 #
 # Características:
 #   - Usa rt/arm_sdk para robot físico.
