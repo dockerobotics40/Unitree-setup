@@ -1,0 +1,28 @@
+{
+  "nombre_rutina": "00_pose_segura",
+  "fecha_creacion": "2026-07-08 13:31:03",
+  "robot": "unitree_g1",
+  "modelo": "g1_23dof",
+  "requiere_robot_quieto": true,
+  "descripcion": "Pose segura neutral para Unitree G1 23 DoF. Usada como inicio y final de todas las rutinas.",
+  "numero_pasos": 1,
+  "pasos": [
+    {
+      "nombre": "Pose segura neutral",
+      "posiciones": {
+        "12": 0.00133,
+        "15": -0.04299,
+        "16": 0.14,
+        "17": 0.05236,
+        "18": 1.05747,
+        "19": 0.0,
+        "22": -0.042555,
+        "23": -0.2168,
+        "24": 0.15708,
+        "25": 1.073175,
+        "26": 0.0
+      },
+      "duracion": 1.0
+    }
+  ]
+}
