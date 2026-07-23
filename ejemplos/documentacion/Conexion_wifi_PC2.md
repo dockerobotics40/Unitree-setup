@@ -60,7 +60,7 @@ Para probar acceso a Internet:
 ping -c 4 8.8.8.8
 ```
 
-![1743698806090](images/Conexion_wifi_PC2/1743698806090.png)
+![1743698806090](../images/Conexion_wifi_PC2/1743698806090.png)
 
 Si hay respuesta, la conexión a Internet está funcionando.
 Si no hay respuesta, verificar la ruta de conexión:

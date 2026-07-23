@@ -62,7 +62,7 @@ Ejecuta el simulador especificando el robot **G1** y una de las escenas disponib
 ```
 
 📌 Resultado esperado: El robot aparecerá colgado en el simulador.
-![1759168040102](images/Simulacion_G1_Mujoco/1759168040102.png)
+![1759168040102](../images/Simulacion_G1_Mujoco/1759168040102.png)
 
 * Tecla **7** → sube el robot.
 * Tecla **8** → baja el robot.
@@ -98,7 +98,7 @@ python3 g1_low_level_example.py
 
 📌 Resultado esperado:
 El robot realiza una ​**secuencia temporizada de movimiento de tobillos y brazos**​.
-![1759167980800](images/Simulacion_G1_Mujoco/1759167980800.png)
+![1759167980800](../images/Simulacion_G1_Mujoco/1759167980800.png)
 
 
 ### Ejemplo 2: `g1_arms_example.py`
@@ -122,8 +122,8 @@ Para probar diferentes gestos, basta con reemplazar `"aplaudir.txt"` por cualqui
 
 📌 Resultado esperado:
 El robot ejecuta el gesto de brazos definido en el archivo `.txt`.
-![1759168104008](images/Simulacion_G1_Mujoco/1759168104008.png)
-![1759168133309](images/Simulacion_G1_Mujoco/1759168133309.png)
+![1759168104008](../images/Simulacion_G1_Mujoco/1759168104008.png)
+![1759168133309](../images/Simulacion_G1_Mujoco/1759168133309.png)
 
 ## 4. Notas adicionales
 
