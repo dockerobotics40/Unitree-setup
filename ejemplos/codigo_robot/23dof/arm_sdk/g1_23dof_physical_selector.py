@@ -6,9 +6,9 @@
 #   python3 g1_23dof_physical_selector.py eth0
 #
 # Estructura esperada:
-#   23_arm_sdk/
+#   codigo_robot/23dof/arm_sdk/
 #   ├── g1_23dof_physical_selector.py
-#   Codigos simulacion
+#   simulacion_mujoco
 #   └── 23 dof/
 #        └── poses_json/
 #           ├── 0_pose_segura.json

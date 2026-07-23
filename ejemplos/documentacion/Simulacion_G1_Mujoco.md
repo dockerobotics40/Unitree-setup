@@ -70,7 +70,7 @@ Ejecuta el simulador especificando el robot **G1** y una de las escenas disponib
 
 ## 3. Ejemplos en Python para G1
 
-En el directorio `simulate_python/test` puedes descargar los siguientes archivos que se encuentran en la carpeta **Codigos simulacion** del repositorio:
+En el directorio `simulate_python/test` puedes descargar los siguientes archivos que se encuentran en la carpeta **simulacion_mujoco** del repositorio:
 
 ```bash
 g1_arms_example.py
